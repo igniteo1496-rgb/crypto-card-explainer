@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Card Briefing for Card Issuers</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Crypto Card Briefing">
+          <span class="brand-mark">c</span>
+          <span class="brand-name">CardOS Briefing</span>
+        </a>
+
+        <nav class="nav-stack">
+          <a class="nav-item is-active" href="#landscape">
+            <span aria-hidden="true">□</span>
+            <span>LANDSCAPE</span>
+          </a>
+          <a class="nav-item" href="#compare">
+            <span aria-hidden="true">≡</span>
+            <span>COMPARE</span>
+          </a>
+          <a class="nav-item nav-item-accent" href="#strategy">
+            <span aria-hidden="true">✓</span>
+            <span>ISSUER PLAYBOOK</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span>CRYPTO CARD BRIEFING</span>
+          <span>FOR DEDICATED CARD ISSUERS</span>
+          <span>2026</span>
+        </div>
+      </aside>
+
+      <main id="top" class="main">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">카드사 담당자를 위한 시장 설명 자료</p>
+            <h1 id="hero-title">Crypto cards, explained for issuers.</h1>
+            <p class="hero-subtitle">
+              크립토 카드는 코인 결제 카드가 아니라, 디지털 자산 고객을 카드 결제 네트워크로
+              끌어오는 새로운 발급/제휴 상품군입니다.
+            </p>
+          </div>
+
+          <div class="hero-panel" aria-label="Crypto card market snapshot">
+            <div class="hero-metric">
+              <span>Global live products</span>
+              <strong>40+</strong>
+            </div>
+            <div class="hero-metric">
+              <span>Issuer role</span>
+              <strong>BaaS + BIN</strong>
+            </div>
+            <div class="hero-metric">
+              <span>Core KPI</span>
+              <strong>ACTIVE SPEND</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="landscape" class="catalog-section" aria-labelledby="catalog-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="catalog-title">Explore card models</h2>
+              <p>카드사가 검토할 수 있는 대표 모델 6가지</p>
+            </div>
+            <div class="toolbar" role="group" aria-label="Card model filters">
+              <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input id="searchInput" type="search" placeholder="SEARCH MODEL..." />
+              </label>
+              <button class="filter-btn is-selected" type="button" data-filter="all">
+                <span aria-hidden="true">●</span>
+                ALL
+              </button>
+              <button class="filter-btn" type="button" data-filter="issuer">
+                <span aria-hidden="true">□</span>
+                ISSUER
+              </button>
+              <button class="filter-btn" type="button" data-filter="partner">
+                <span aria-hidden="true">⇄</span>
+                PARTNER
+              </button>
+            </div>
+          </div>
+
+          <div class="status-line">
+            <span>SHOWING</span>
+            <strong id="visibleCount">6</strong>
+            <span>MODELS</span>
+          </div>
+
+          <div class="card-grid" id="modelGrid">
+            <article class="model-card card-black" data-type="issuer" data-name="exchange co brand">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Exchange Co-brand to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>EXCHANGE</span>
+                <strong>8842</strong>
+                <small>CO-BRAND DEBIT</small>
+              </div>
+              <div class="model-copy">
+                <h3>Exchange Co-brand</h3>
+                <p>거래소 고객에게 실물/모바일 카드를 발급하고 원화 충전 또는 매도 정산으로 결제.</p>
+              </div>
+            </article>
+
+            <article class="model-card card-blue" data-type="partner" data-name="stablecoin prepaid">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Stablecoin Prepaid to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>STABLE</span>
+                <strong>1208</strong>
+                <small>PREPAID CARD</small>
+              </div>
+              <div class="model-copy">
+                <h3>Stablecoin Prepaid</h3>
+                <p>스테이블코인 잔고를 선불 한도로 전환. 해외 이용, 리워드, remittance와 결합 가능.</p>
+              </div>
+            </article>
+
+            <article class="model-card card-yellow" data-type="issuer" data-name="crypto rewards credit">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Crypto Rewards Credit to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>REWARD</span>
+                <strong>5021</strong>
+                <small>CREDIT CARD</small>
+              </div>
+              <div class="model-copy">
+                <h3>Crypto Rewards Credit</h3>
+                <p>일반 신용카드 결제금액의 일부를 포인트 대신 가상자산 또는 토큰 바스켓으로 지급.</p>
+              </div>
+            </article>
+
+            <article class="model-card card-steel" data-type="partner" data-name="wallet embedded card">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Wallet Embedded Card to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>WALLET</span>
+                <strong>7065</strong>
+                <small>IN-APP CARD</small>
+              </div>
+              <div class="model-copy">
+                <h3>Wallet Embedded Card</h3>
+                <p>지갑 앱 안에서 즉시 발급되는 가상카드. 고객 접점은 파트너, 승인/정산은 카드사가 담당.</p>
+              </div>
+            </article>
+
+            <article class="model-card card-green" data-type="issuer" data-name="premium metal membership">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Premium Metal Membership to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>PREMIUM</span>
+                <strong>9914</strong>
+                <small>METAL MEMBER</small>
+              </div>
+              <div class="model-copy">
+                <h3>Premium Metal Membership</h3>
+                <p>스테이킹, 월 구독료, VIP 수수료 혜택을 카드 연회비와 결합한 고가치 고객 상품.</p>
+              </div>
+            </article>
+
+            <article class="model-card card-purple" data-type="partner" data-name="merchant settlement card">
+              <div class="card-top">
+                <span class="chip-dot"></span>
+                <button class="plus-btn" type="button" aria-label="Add Merchant Settlement Card to comparison">+</button>
+              </div>
+              <div class="bank-card">
+                <span>MERCHANT</span>
+                <strong>3349</strong>
+                <small>B2B PAYOUT</small>
+              </div>
+              <div class="model-copy">
+                <h3>Merchant Settlement Card</h3>
+                <p>가맹점/크리에이터 정산금을 카드 한도로 연결해 업무비, 광고비, 해외 결제에 사용.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="compare" class="compare-section" aria-labelledby="compare-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="compare-title">Compare issuer options</h2>
+              <p>전업 카드사가 맡는 역할에 따라 수익과 리스크가 달라집니다.</p>
+            </div>
+          </div>
+
+          <div class="compare-grid">
+            <article class="compare-card">
+              <span class="rank">01</span>
+              <h3>BIN Sponsor</h3>
+              <p>카드 발급/승인/정산 인프라를 제공하고 거래소 또는 지갑 사업자가 고객획득을 담당합니다.</p>
+              <dl>
+                <div><dt>Revenue</dt><dd>Processing fee, interchange share</dd></div>
+                <div><dt>Risk</dt><dd>KYC 위임, 이상거래 모니터링</dd></div>
+              </dl>
+            </article>
+            <article class="compare-card">
+              <span class="rank">02</span>
+              <h3>Co-brand Issuer</h3>
+              <p>카드사가 브랜드/CRM/혜택을 공동 설계하고 고객 데이터와 결제 이용률을 직접 관리합니다.</p>
+              <dl>
+                <div><dt>Revenue</dt><dd>연회비, 리볼빙, 리워드 breakage</dd></div>
+                <div><dt>Risk</dt><dd>평판 리스크, 민원/분쟁 책임</dd></div>
+              </dl>
+            </article>
+            <article class="compare-card">
+              <span class="rank">03</span>
+              <h3>Rewards Rails</h3>
+              <p>기존 신용카드 상품에 크립토 리워드만 얹어 고객 반응을 빠르게 테스트합니다.</p>
+              <dl>
+                <div><dt>Revenue</dt><dd>기존 카드 P&L 유지</dd></div>
+                <div><dt>Risk</dt><dd>시세 고지, 리워드 과세 안내</dd></div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="flow-section" aria-labelledby="flow-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="flow-title">How money moves</h2>
+              <p>실제 결제는 카드 네트워크에서, 자산 전환은 파트너 또는 수탁 계정에서 처리됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-board">
+            <div class="flow-step">
+              <span>01</span>
+              <strong>Customer</strong>
+              <p>거래소/지갑 잔고 또는 카드 한도 선택</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step">
+              <span>02</span>
+              <strong>Authorization</strong>
+              <p>가맹점은 일반 카드 승인으로 인식</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step">
+              <span>03</span>
+              <strong>Conversion</strong>
+              <p>원화 한도 확보 또는 필요 시 즉시 매도</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step">
+              <span>04</span>
+              <strong>Settlement</strong>
+              <p>매입/정산/차지백은 카드사 프로세스 적용</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="strategy" class="strategy-section" aria-labelledby="strategy-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="strategy-title">Issuer playbook</h2>
+              <p>국내 카드사가 검토할 때의 우선순위</p>
+            </div>
+          </div>
+
+          <div class="strategy-layout">
+            <div class="decision-panel">
+              <h3>추천 진입 순서</h3>
+              <ol>
+                <li>기존 신용카드에 크립토 리워드 옵션 추가</li>
+                <li>거래소/지갑사와 체크·선불 공동 파일럿</li>
+                <li>고객군 검증 후 프리미엄 멤버십/해외결제 상품화</li>
+              </ol>
+            </div>
+            <div class="checklist">
+              <div>
+                <span>✓</span>
+                <p>가상자산사업자 신고, Travel Rule, 실명계좌 파트너 여부 확인</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p>고객 설명서에 가격 변동성, 매도 시점, 수수료, 세금 안내 분리</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p>FDS 룰에 온체인 입출금 패턴, 거래소 계정 위험등급, MCC 룰 결합</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p>카드사는 “크립토 투자”가 아니라 결제 편의와 리워드 선택권으로 포지셔닝</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
