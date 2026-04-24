@@ -10,6 +10,8 @@ const modelGrid = document.querySelector("#modelGrid");
 const visibleCount = document.querySelector("#visibleCount");
 const heroCardCount = document.querySelector("#heroCardCount");
 const selectedCount = document.querySelector("#selectedCount");
+const selectedCountHero = document.querySelector("#selectedCountHero");
+const activeFilterCount = document.querySelector("#activeFilterCount");
 const clearCompare = document.querySelector("#clearCompare");
 const comparePanel = document.querySelector("#comparePanel");
 const detailModal = document.querySelector("#detailModal");
@@ -103,6 +105,7 @@ function renderCards() {
   const list = filteredCards();
   visibleCount.textContent = list.length.toString();
   heroCardCount.textContent = cards.length.toString();
+  activeFilterCount.textContent = countActiveFilters().toString();
 
   if (!list.length) {
     modelGrid.innerHTML = `
@@ -162,6 +165,7 @@ function selectedCards() {
 function renderCompare() {
   const selected = selectedCards();
   selectedCount.textContent = selected.length.toString();
+  selectedCountHero.textContent = selected.length.toString();
 
   if (!selected.length) {
     comparePanel.innerHTML = `
@@ -224,6 +228,17 @@ function renderCompare() {
       </table>
     </div>
   `;
+}
+
+function countActiveFilters() {
+  return [
+    activeFilter !== "all",
+    Boolean(networkFilter.value),
+    Boolean(kycFilter.value),
+    Boolean(custodyFilter.value),
+    sortSelect.value !== "rank",
+    Boolean(searchInput.value.trim()),
+  ].filter(Boolean).length;
 }
 
 function toggleSelection(id) {
