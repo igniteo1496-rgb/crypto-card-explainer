@@ -1,4 +1,5 @@
-// Snapshot adapted from CryptoAgg public product data on 2026-04-23.
+// Snapshot adapted from CryptoAgg public product data on 2026-04-27.
+// Source bundle: https://crypto-card-aggregator.vercel.app/assets/index-CS-GyK4t.js
 // Verify live issuer terms, regions, fees, and rewards before commercial use.
 window.CARD_DATA = [
   {
