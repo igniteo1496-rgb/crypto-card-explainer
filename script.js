@@ -40,6 +40,22 @@ function cardTheme(card) {
   return cardThemes[Math.abs(hashString(card.id)) % cardThemes.length];
 }
 
+function cardTypeMeta(type) {
+  const normalized = String(type || "").toLowerCase();
+  if (normalized === "credit") return { code: "CR", label: "Credit" };
+  if (normalized === "debit") return { code: "DB", label: "Debit" };
+  if (normalized === "prepaid") return { code: "PP", label: "Prepaid" };
+  return { code: "??", label: type || "Unknown type" };
+}
+
+function cardStatusMeta(card) {
+  const status = String(card.status || "verify").toLowerCase();
+  if (status === "active") return { code: "Active", label: "Active", className: "status-active" };
+  if (status === "inactive") return { code: "Inactive", label: "Inactive or legacy", className: "status-inactive" };
+  if (status === "waitlist") return { code: "Waitlist", label: "Waitlist or limited rollout", className: "status-waitlist" };
+  return { code: "Needs check", label: "Needs official verification", className: "status-verify" };
+}
+
 function hashString(value) {
   return String(value).split("").reduce((total, char) => total + char.charCodeAt(0), 0);
 }
@@ -60,6 +76,10 @@ function normalizeSearch(card) {
     card.atmLimit,
     card.supportedAssets,
     card.kyc,
+    card.status,
+    card.availabilityNote,
+    card.cardForm,
+    card.cryptoRole,
     card.supportedCurrencies?.join(" "),
     card.perks?.join(" "),
   ]
@@ -121,10 +141,14 @@ function renderCards() {
     .map((card) => {
       const selected = selectedIds.includes(card.id);
       const perks = (card.perks || []).slice(0, 3);
+      const typeMeta = cardTypeMeta(card.type);
+      const statusMeta = cardStatusMeta(card);
       return `
         <article class="model-card product-card ${cardTheme(card)}" data-card-id="${escapeHtml(card.id)}">
           <div class="card-top">
-            <span class="issuer-logo">${escapeHtml(card.issuer.slice(0, 1))}</span>
+            <span class="type-badge type-${escapeHtml(typeMeta.label.toLowerCase())}" aria-label="${escapeHtml(typeMeta.label)} card type" title="${escapeHtml(typeMeta.label)}">
+              ${escapeHtml(typeMeta.code)}
+            </span>
             <button class="plus-btn ${selected ? "is-added" : ""}" type="button" data-select-card="${escapeHtml(card.id)}" aria-label="Toggle ${escapeHtml(card.name)} comparison">
               ${selected ? "✓" : "+"}
             </button>
@@ -137,9 +161,12 @@ function renderCards() {
           <div class="model-copy">
             <div class="title-row">
               <h3>${escapeHtml(card.name)}</h3>
-              <span>${escapeHtml(card.kyc)}</span>
+              <div class="title-badges">
+                <span>${escapeHtml(card.kyc)}</span>
+                <span class="status-pill ${escapeHtml(statusMeta.className)}" title="${escapeHtml(statusMeta.label)}">${escapeHtml(statusMeta.code)}</span>
+              </div>
             </div>
-            <p>${escapeHtml(card.regions)} · ${escapeHtml(card.custody)}</p>
+            <p>${escapeHtml(card.regions)} · ${escapeHtml(card.custody)}${card.cryptoRole ? ` · ${escapeHtml(card.cryptoRole)}` : ""}</p>
             <div class="meta-grid">
               <div><span>Annual fee</span><strong>${escapeHtml(card.annualFee)}</strong></div>
               <div><span>FX fee</span><strong>${escapeHtml(card.fxFee)}</strong></div>
@@ -184,6 +211,10 @@ function renderCompare() {
     ["Annual fee", (card) => card.annualFee],
     ["FX fee", (card) => card.fxFee],
     ["Signup bonus", (card) => card.signupBonus],
+    ["Status", (card) => cardStatusMeta(card).code],
+    ["Crypto role", (card) => card.cryptoRole || "Needs check"],
+    ["Card form", (card) => card.cardForm || "Needs check"],
+    ["Availability note", (card) => card.availabilityNote || "Needs official verification"],
     ["Custody", (card) => card.custody],
     ["KYC", (card) => card.kyc],
     ["Regions", (card) => card.regions],
@@ -258,6 +289,7 @@ function toggleSelection(id) {
 function openDetail(id) {
   const card = cards.find((item) => item.id === id);
   if (!card) return;
+  const statusMeta = cardStatusMeta(card);
 
   modalContent.innerHTML = `
     <div class="modal-hero">
@@ -270,11 +302,18 @@ function openDetail(id) {
         <p class="eyebrow">${escapeHtml(card.issuer)}</p>
         <h2 id="modalTitle">${escapeHtml(card.name)}</h2>
         <p>${escapeHtml(card.regions)} · ${escapeHtml(card.custody)} · ${escapeHtml(card.kyc)} KYC</p>
+        <div class="modal-badges">
+          <span class="status-pill ${escapeHtml(statusMeta.className)}">${escapeHtml(statusMeta.code)}</span>
+          ${card.cryptoRole ? `<span>${escapeHtml(card.cryptoRole)}</span>` : ""}
+          ${card.cardForm ? `<span>${escapeHtml(card.cardForm)}</span>` : ""}
+        </div>
       </div>
     </div>
     <div class="detail-grid">
       ${detailItem("Type", card.type)}
       ${detailItem("Network", card.network)}
+      ${detailItem("Status", statusMeta.code)}
+      ${detailItem("Availability", card.availabilityNote || "Needs official verification")}
       ${detailItem("Max cashback", formatCashback(card.cashbackMax))}
       ${detailItem("Annual fee", card.annualFee)}
       ${detailItem("FX fee", card.fxFee)}
@@ -294,6 +333,7 @@ function openDetail(id) {
         ${selectedIds.includes(card.id) ? "Remove from compare" : "Add to compare"}
       </button>
       <a class="primary-link" href="${escapeHtml(card.officialLink)}" target="_blank" rel="noreferrer">Open official site</a>
+      ${card.evidenceUrl ? `<a class="secondary-btn" href="${escapeHtml(card.evidenceUrl)}" target="_blank" rel="noreferrer">Verification source</a>` : ""}
     </div>
   `;
 

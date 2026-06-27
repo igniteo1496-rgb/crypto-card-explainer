@@ -810,7 +810,7 @@ dd {
   }
 }
 
-.issuer-logo {
+.type-badge {
   display: grid;
   place-items: center;
   width: 38px;
@@ -819,8 +819,27 @@ dd {
   background: var(--blue-0);
   border: 1px solid var(--blue-10);
   color: var(--blue-60);
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.type-credit {
+  background: #eef4ff;
+  border-color: #cfe0ff;
+  color: #0052ff;
+}
+
+.type-debit {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #047857;
+}
+
+.type-prepaid {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #c2410c;
 }
 
 .bank-card.card-blue,
@@ -850,6 +869,44 @@ dd {
   color: var(--blue-60);
   font-size: 11px;
   font-weight: 800;
+}
+
+.title-badges,
+.modal-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.modal-badges {
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+
+.modal-badges span {
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: var(--surface-subtle);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.status-pill.status-active {
+  background: #ecfdf5;
+  color: var(--positive);
+}
+
+.status-pill.status-verify,
+.status-pill.status-waitlist {
+  background: #fff7ed;
+  color: var(--warning);
+}
+
+.status-pill.status-inactive {
+  background: #fef2f2;
+  color: #b42318;
 }
 
 .meta-grid {
