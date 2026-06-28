@@ -448,6 +448,7 @@ h1 {
 }
 
 .card-top {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -851,6 +852,43 @@ dd {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.type-badge:hover,
+.type-badge:focus-visible,
+.type-badge[aria-expanded="true"] {
+  box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.12);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.type-tooltip {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  z-index: 4;
+  width: min(260px, calc(100vw - 48px));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.type-tooltip strong,
+.type-tooltip span {
+  display: block;
+}
+
+.type-tooltip strong {
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 12px;
 }
 
 .type-credit {

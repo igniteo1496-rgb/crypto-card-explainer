@@ -25,6 +25,7 @@ let currentLanguage =
   localStorage.getItem("atlasLanguage") || (navigator.language && navigator.language.toLowerCase().startsWith("ko") ? "ko" : "en");
 currentLanguage = currentLanguage === "ko" ? "ko" : "en";
 let openCardId = null;
+let activeTypeTooltipId = null;
 
 const cardThemes = ["card-black", "card-blue", "card-yellow", "card-steel", "card-green", "card-purple"];
 const translations = {
@@ -93,6 +94,10 @@ const translations = {
     appleGooglePaySupported: "Apple/Google Pay supported",
     needsOfficialVerification: "Needs official verification",
     type: "Type",
+    typeTooltipLabel: "Explain card type",
+    creditExplanation: "Credit: you spend on a credit line or collateral-backed loan, then repay later.",
+    debitExplanation: "Debit: purchases draw directly from your available wallet or account balance.",
+    prepaidExplanation: "Prepaid: you load funds first, then spend only the loaded balance.",
     network: "Network",
     maxCashback: "Max cashback",
     annualFee: "Annual fee",
@@ -179,6 +184,10 @@ const translations = {
     appleGooglePaySupported: "Apple/Google Pay 지원",
     needsOfficialVerification: "공식 확인 필요",
     type: "카드 타입",
+    typeTooltipLabel: "카드 타입 설명",
+    creditExplanation: "신용: 신용 한도나 담보 대출을 이용해 먼저 결제하고 나중에 상환하는 방식입니다.",
+    debitExplanation: "체크/직불: 지갑이나 계정에 있는 사용 가능 잔액에서 바로 결제되는 방식입니다.",
+    prepaidExplanation: "선불: 먼저 금액을 충전한 뒤, 충전된 잔액 안에서만 결제하는 방식입니다.",
     network: "네트워크",
     maxCashback: "최대 캐시백",
     annualFee: "연회비",
@@ -268,6 +277,14 @@ function cardTypeMeta(type) {
   return { code: "??", label: type || "Unknown type" };
 }
 
+function cardTypeExplanation(type) {
+  const normalized = String(type || "").toLowerCase();
+  if (normalized === "credit") return t("creditExplanation");
+  if (normalized === "debit") return t("debitExplanation");
+  if (normalized === "prepaid") return t("prepaidExplanation");
+  return t("needsOfficialVerification");
+}
+
 function cardStatusMeta(card) {
   const status = String(card.status || "verify").toLowerCase();
   if (status === "active") return { code: t("active"), label: t("activeLabel"), className: "status-active" };
@@ -346,6 +363,7 @@ function applyStaticTranslations() {
 function setLanguage(language) {
   currentLanguage = language === "ko" ? "ko" : "en";
   localStorage.setItem("atlasLanguage", currentLanguage);
+  activeTypeTooltipId = null;
   applyStaticTranslations();
   renderCards();
   renderCompare();
@@ -397,12 +415,22 @@ function renderCards() {
       const typeMeta = cardTypeMeta(card.type);
       const statusMeta = cardStatusMeta(card);
       const typeClass = String(card.type || "").toLowerCase();
+      const tooltipOpen = activeTypeTooltipId === card.id;
+      const tooltipId = `type-tooltip-${card.id}`;
       return `
         <article class="model-card product-card ${cardTheme(card)}" data-card-id="${escapeHtml(card.id)}">
           <div class="card-top">
-            <span class="type-badge type-${escapeHtml(typeClass)}" aria-label="${escapeHtml(typeMeta.label)} card type" title="${escapeHtml(typeMeta.label)}">
+            <button class="type-badge type-${escapeHtml(typeClass)}" type="button" data-type-tooltip="${escapeHtml(card.id)}" aria-label="${escapeHtml(`${typeMeta.label}: ${t("typeTooltipLabel")}`)}" aria-expanded="${tooltipOpen ? "true" : "false"}" aria-describedby="${escapeHtml(tooltipId)}" title="${escapeHtml(typeMeta.label)}">
               ${escapeHtml(typeMeta.code)}
-            </span>
+            </button>
+            ${
+              tooltipOpen
+                ? `<div class="type-tooltip" id="${escapeHtml(tooltipId)}" role="tooltip">
+                    <strong>${escapeHtml(typeMeta.code)} · ${escapeHtml(typeMeta.label)}</strong>
+                    <span>${escapeHtml(cardTypeExplanation(card.type))}</span>
+                  </div>`
+                : ""
+            }
             <button class="plus-btn ${selected ? "is-added" : ""}" type="button" data-select-card="${escapeHtml(card.id)}" aria-label="Toggle ${escapeHtml(card.name)} comparison">
               ${selected ? "✓" : "+"}
             </button>
@@ -636,20 +664,34 @@ languageButtons.forEach((button) => {
 });
 
 document.addEventListener("click", (event) => {
+  const typeButton = event.target.closest("[data-type-tooltip]");
+  if (typeButton) {
+    activeTypeTooltipId = activeTypeTooltipId === typeButton.dataset.typeTooltip ? null : typeButton.dataset.typeTooltip;
+    renderCards();
+    return;
+  }
+
   const selectButton = event.target.closest("[data-select-card]");
   if (selectButton) {
+    activeTypeTooltipId = null;
     toggleSelection(selectButton.dataset.selectCard);
     return;
   }
 
   const openButton = event.target.closest("[data-open-card]");
   if (openButton) {
+    activeTypeTooltipId = null;
     openDetail(openButton.dataset.openCard);
     return;
   }
 
   if (event.target.closest("[data-close-modal]")) {
     closeDetail();
+  }
+
+  if (!event.target.closest(".type-tooltip")) {
+    activeTypeTooltipId = null;
+    renderCards();
   }
 });
 
