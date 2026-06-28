@@ -17,48 +17,53 @@
         <nav class="nav-stack">
           <a class="nav-item is-active" href="#landscape">
             <span aria-hidden="true">□</span>
-            <span>EXPLORE</span>
+            <span data-i18n="navExplore">EXPLORE</span>
           </a>
           <a class="nav-item" href="#compare">
             <span aria-hidden="true">≡</span>
-            <span>COMPARE</span>
+            <span data-i18n="navCompare">COMPARE</span>
           </a>
         </nav>
 
+        <div class="language-toggle" role="group" aria-label="Language">
+          <button class="lang-btn is-selected" type="button" data-language="en">EN</button>
+          <button class="lang-btn" type="button" data-language="ko">한</button>
+        </div>
+
         <div class="sidebar-note">
-          <span>43 card products</span>
-          <span>Search, filter, compare</span>
-          <span>Up to 6 side by side</span>
+          <span data-i18n="sidebarProducts">43 card products</span>
+          <span data-i18n="sidebarWorkflow">Search, filter, compare</span>
+          <span data-i18n="sidebarCompareLimit">Up to 6 side by side</span>
         </div>
       </aside>
 
       <main id="top" class="main">
         <section class="hero app-hero" aria-labelledby="hero-title">
           <div class="hero-copy">
-            <p class="eyebrow">Crypto card search and comparison</p>
-            <h1 id="hero-title">Crypto Card Finder</h1>
-            <p class="hero-subtitle">Search active crypto cards by issuer, region, network, rewards, custody, and verification status.</p>
+            <p class="eyebrow" data-i18n="heroEyebrow">Crypto card search and comparison</p>
+            <h1 id="hero-title" data-i18n="heroTitle">Crypto Card Finder</h1>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">Search active crypto cards by issuer, region, network, rewards, custody, and verification status.</p>
             <div class="hero-cta-row">
-              <a class="primary-link" href="#landscape">Browse cards</a>
-              <a class="secondary-btn" href="#compare">Open compare</a>
+              <a class="primary-link" href="#landscape" data-i18n="browseCards">Browse cards</a>
+              <a class="secondary-btn" href="#compare" data-i18n="openCompare">Open compare</a>
             </div>
           </div>
 
           <div class="hero-panel hero-overview" aria-label="Crypto card market snapshot">
             <div class="hero-metric hero-metric-card">
-              <span>Live cards</span>
+              <span data-i18n="liveCards">Live cards</span>
               <strong id="heroCardCount">42</strong>
             </div>
             <div class="hero-metric hero-metric-card">
-              <span>Networks</span>
+              <span data-i18n="networks">Networks</span>
               <strong>Visa + Mastercard</strong>
             </div>
             <div class="hero-metric hero-metric-card">
-              <span>Active filters</span>
+              <span data-i18n="activeFilters">Active filters</span>
               <strong id="activeFilterCount">4</strong>
             </div>
             <div class="hero-metric hero-metric-card">
-              <span>Selected to compare</span>
+              <span data-i18n="selectedToCompare">Selected to compare</span>
               <strong id="selectedCountHero">0</strong>
             </div>
           </div>
@@ -67,51 +72,51 @@
         <section id="landscape" class="catalog-section" aria-labelledby="catalog-title">
           <div class="section-heading">
             <div>
-              <h2 id="catalog-title">Explore crypto cards</h2>
-              <p>상품 중심 화면에서 바로 탐색하고, 필요한 카드만 선택해서 비교합니다.</p>
+              <h2 id="catalog-title" data-i18n="catalogTitle">Explore crypto cards</h2>
+              <p data-i18n="catalogSubtitle">Browse card products, then select only the cards you want to compare.</p>
             </div>
             <div class="toolbar" role="group" aria-label="Card model filters">
               <label class="search-box">
                 <span aria-hidden="true">⌕</span>
-                <input id="searchInput" type="search" placeholder="SEARCH MODEL..." />
+                <input id="searchInput" type="search" placeholder="SEARCH MODEL..." data-i18n-placeholder="searchPlaceholder" />
               </label>
               <button class="filter-btn is-selected" type="button" data-filter="all">
                 <span aria-hidden="true">●</span>
-                ALL
+                <span data-i18n="filterAll">ALL</span>
               </button>
               <button class="filter-btn" type="button" data-filter="Credit">
                 <span aria-hidden="true">□</span>
-                CREDIT
+                <span data-i18n="filterCredit">CREDIT</span>
               </button>
               <button class="filter-btn" type="button" data-filter="Debit">
                 <span aria-hidden="true">⇄</span>
-                DEBIT
+                <span data-i18n="filterDebit">DEBIT</span>
               </button>
               <button class="filter-btn" type="button" data-filter="Prepaid">
                 <span aria-hidden="true">○</span>
-                PREPAID
+                <span data-i18n="filterPrepaid">PREPAID</span>
               </button>
               <select class="select-filter" id="networkFilter" aria-label="Filter by network">
-                <option value="">All networks</option>
+                <option value="" data-i18n="allNetworks">All networks</option>
               </select>
               <select class="select-filter" id="kycFilter" aria-label="Filter by KYC">
-                <option value="">All KYC</option>
+                <option value="" data-i18n="allKyc">All KYC</option>
               </select>
               <select class="select-filter" id="custodyFilter" aria-label="Filter by custody">
-                <option value="">All custody</option>
+                <option value="" data-i18n="allCustody">All custody</option>
               </select>
               <select class="select-filter" id="sortSelect" aria-label="Sort cards">
-                <option value="rank">Featured</option>
-                <option value="cashback">Highest cashback</option>
-                <option value="name">Name A-Z</option>
+                <option value="rank" data-i18n="sortFeatured">Featured</option>
+                <option value="cashback" data-i18n="sortCashback">Highest cashback</option>
+                <option value="name" data-i18n="sortName">Name A-Z</option>
               </select>
             </div>
           </div>
 
           <div class="status-line">
-            <span>SHOWING</span>
+            <span data-i18n="showing">SHOWING</span>
             <strong id="visibleCount">6</strong>
-            <span>MODELS</span>
+            <span data-i18n="models">MODELS</span>
           </div>
 
           <div class="card-grid" id="modelGrid" aria-live="polite"></div>
@@ -120,14 +125,14 @@
         <section id="compare" class="compare-section" aria-labelledby="compare-title">
           <div class="section-heading">
             <div>
-              <h2 id="compare-title">Compare selected cards</h2>
-              <p>선택된 카드만 표 형태로 바로 비교합니다.</p>
+              <h2 id="compare-title" data-i18n="compareTitle">Compare selected cards</h2>
+              <p data-i18n="compareSubtitle">Compare only the selected cards in a table.</p>
             </div>
           </div>
 
           <div class="compare-actions">
-            <span><strong id="selectedCount">0</strong> cards selected</span>
-            <button class="secondary-btn" type="button" id="clearCompare">Clear comparison</button>
+            <span><strong id="selectedCount">0</strong> <span data-i18n="cardsSelected">cards selected</span></span>
+            <button class="secondary-btn" type="button" id="clearCompare" data-i18n="clearComparison">Clear comparison</button>
           </div>
 
           <div id="comparePanel"></div>

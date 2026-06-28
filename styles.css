@@ -145,6 +145,35 @@ input {
   color: #ffffff;
 }
 
+.language-toggle {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-subtle);
+}
+
+.lang-btn {
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lang-btn.is-selected,
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  background: var(--blue-60);
+  color: #ffffff;
+}
+
 .sidebar-note {
   margin-top: auto;
   padding: 18px;
