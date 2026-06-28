@@ -76,46 +76,76 @@
               <p data-i18n="catalogSubtitle">Browse card products, then select only the cards you want to compare.</p>
             </div>
             <div class="toolbar" role="group" aria-label="Card model filters">
-              <label class="search-box">
-                <span aria-hidden="true">⌕</span>
-                <input id="searchInput" type="search" placeholder="SEARCH MODEL..." data-i18n-placeholder="searchPlaceholder" />
-              </label>
-              <button class="filter-btn is-selected" type="button" data-filter="all">
-                <span aria-hidden="true">●</span>
-                <span data-i18n="filterAll">ALL</span>
-              </button>
-              <button class="filter-btn" type="button" data-filter="Credit">
-                <span aria-hidden="true">□</span>
-                <span data-i18n="filterCredit">CREDIT</span>
-              </button>
-              <button class="filter-btn" type="button" data-filter="Debit">
-                <span aria-hidden="true">⇄</span>
-                <span data-i18n="filterDebit">DEBIT</span>
-              </button>
-              <button class="filter-btn" type="button" data-filter="Prepaid">
-                <span aria-hidden="true">○</span>
-                <span data-i18n="filterPrepaid">PREPAID</span>
-              </button>
-              <select class="select-filter" id="networkFilter" aria-label="Filter by network">
-                <option value="" data-i18n="allNetworks">All networks</option>
-              </select>
-              <select class="select-filter" id="kycFilter" aria-label="Filter by KYC">
-                <option value="" data-i18n="allKyc">All KYC</option>
-              </select>
-              <select class="select-filter" id="custodyFilter" aria-label="Filter by custody">
-                <option value="" data-i18n="allCustody">All custody</option>
-              </select>
-              <select class="select-filter" id="statusFilter" aria-label="Filter by verification status">
-                <option value="" data-i18n="allStatus">All status</option>
-                <option value="active" data-i18n="statusActive">Active only</option>
-                <option value="verify" data-i18n="statusVerify">Needs check</option>
-                <option value="inactive" data-i18n="statusInactive">Inactive / legacy</option>
-              </select>
-              <select class="select-filter" id="sortSelect" aria-label="Sort cards">
-                <option value="rank" data-i18n="sortFeatured">Featured</option>
-                <option value="cashback" data-i18n="sortCashback">Highest cashback</option>
-                <option value="name" data-i18n="sortName">Name A-Z</option>
-              </select>
+              <div class="filter-group filter-group-search">
+                <span class="filter-label" data-i18n="filterSearchLabel">Search</span>
+                <label class="search-box">
+                  <span aria-hidden="true">⌕</span>
+                  <input id="searchInput" type="search" placeholder="SEARCH MODEL..." data-i18n-placeholder="searchPlaceholder" />
+                </label>
+              </div>
+
+              <div class="filter-group filter-group-type" role="group" aria-label="Filter by card type">
+                <span class="filter-label" data-i18n="filterTypeLabel">Card type</span>
+                <div class="type-filter-row">
+                  <button class="filter-btn is-selected" type="button" data-filter="all">
+                    <span aria-hidden="true">●</span>
+                    <span data-i18n="filterAll">ALL</span>
+                  </button>
+                  <button class="filter-btn" type="button" data-filter="Credit">
+                    <span aria-hidden="true">□</span>
+                    <span data-i18n="filterCredit">CREDIT</span>
+                  </button>
+                  <button class="filter-btn" type="button" data-filter="Debit">
+                    <span aria-hidden="true">⇄</span>
+                    <span data-i18n="filterDebit">DEBIT</span>
+                  </button>
+                  <button class="filter-btn" type="button" data-filter="Prepaid">
+                    <span aria-hidden="true">○</span>
+                    <span data-i18n="filterPrepaid">PREPAID</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="filter-group filter-group-selects">
+                <span class="filter-label" data-i18n="filterConditionsLabel">Conditions</span>
+                <div class="select-filter-grid">
+                  <label>
+                    <span data-i18n="network">Network</span>
+                    <select class="select-filter" id="networkFilter" aria-label="Filter by network">
+                      <option value="" data-i18n="allNetworks">All networks</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span data-i18n="kyc">KYC</span>
+                    <select class="select-filter" id="kycFilter" aria-label="Filter by KYC">
+                      <option value="" data-i18n="allKyc">All KYC</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span data-i18n="custody">Custody</span>
+                    <select class="select-filter" id="custodyFilter" aria-label="Filter by custody">
+                      <option value="" data-i18n="allCustody">All custody</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span data-i18n="status">Status</span>
+                    <select class="select-filter" id="statusFilter" aria-label="Filter by verification status">
+                      <option value="" data-i18n="allStatus">All status</option>
+                      <option value="active" data-i18n="statusActive">Active only</option>
+                      <option value="verify" data-i18n="statusVerify">Needs check</option>
+                      <option value="inactive" data-i18n="statusInactive">Inactive / legacy</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span data-i18n="sortLabel">Sort</span>
+                    <select class="select-filter" id="sortSelect" aria-label="Sort cards">
+                      <option value="rank" data-i18n="sortFeatured">Featured</option>
+                      <option value="cashback" data-i18n="sortCashback">Highest cashback</option>
+                      <option value="name" data-i18n="sortName">Name A-Z</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
 

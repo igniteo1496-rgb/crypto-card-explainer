@@ -288,6 +288,11 @@ h1 {
   background: var(--bg);
 }
 
+.catalog-section .section-heading {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .compare-section {
   background: #ffffff;
   border-top: 1px solid var(--line);
@@ -318,16 +323,19 @@ h1 {
 }
 
 .toolbar {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  width: 100%;
+  display: grid;
+  gap: 14px;
+  justify-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
 }
 
 .search-box {
-  width: min(42vw, 420px);
-  min-width: 240px;
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
@@ -337,7 +345,25 @@ h1 {
   padding: 0 14px;
   color: var(--muted-soft);
   background: var(--surface);
-  box-shadow: var(--shadow-soft);
+}
+
+.filter-group {
+  display: grid;
+  gap: 8px;
+}
+
+.filter-label {
+  color: var(--muted-soft);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.type-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .search-box:focus-within {
@@ -357,10 +383,10 @@ h1 {
 }
 
 .filter-btn {
-  height: 48px;
+  height: 42px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 0 18px;
+  padding: 0 14px;
   background: var(--surface);
   color: var(--muted);
   font-size: 14px;
@@ -369,12 +395,31 @@ h1 {
   transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 
+.select-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(118px, 1fr));
+  gap: 8px;
+}
+
+.select-filter-grid label {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.select-filter-grid label > span {
+  color: var(--muted-soft);
+  font-size: 11px;
+  font-weight: 800;
+}
+
 .select-filter {
-  height: 48px;
-  min-width: 140px;
+  width: 100%;
+  height: 42px;
+  min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0 36px 0 14px;
+  border-radius: var(--radius-sm);
+  padding: 0 28px 0 10px;
   background: var(--surface);
   color: var(--muted);
   font-size: 14px;
@@ -759,10 +804,11 @@ dd {
 
   .toolbar {
     justify-content: flex-start;
+    width: 100%;
   }
 
-  .search-box {
-    width: min(100%, 520px);
+  .select-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .card-grid,
@@ -824,6 +870,11 @@ dd {
   .filter-btn,
   .select-filter {
     width: 100%;
+  }
+
+  .type-filter-row,
+  .select-filter-grid {
+    grid-template-columns: 1fr;
   }
 
   .card-grid,
