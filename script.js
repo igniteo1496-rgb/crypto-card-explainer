@@ -5,6 +5,7 @@ const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
 const networkFilter = document.querySelector("#networkFilter");
 const kycFilter = document.querySelector("#kycFilter");
 const custodyFilter = document.querySelector("#custodyFilter");
+const statusFilter = document.querySelector("#statusFilter");
 const sortSelect = document.querySelector("#sortSelect");
 const modelGrid = document.querySelector("#modelGrid");
 const visibleCount = document.querySelector("#visibleCount");
@@ -20,7 +21,8 @@ const languageButtons = Array.from(document.querySelectorAll("[data-language]"))
 
 let activeFilter = "all";
 let selectedIds = [];
-let currentLanguage = localStorage.getItem("atlasLanguage") || "en";
+let currentLanguage =
+  localStorage.getItem("atlasLanguage") || (navigator.language && navigator.language.toLowerCase().startsWith("ko") ? "ko" : "en");
 currentLanguage = currentLanguage === "ko" ? "ko" : "en";
 let openCardId = null;
 
@@ -30,7 +32,7 @@ const translations = {
     navExplore: "EXPLORE",
     pageTitle: "Atlas | Crypto Card Finder",
     navCompare: "COMPARE",
-    sidebarProducts: "43 card products",
+    sidebarProducts: "{count} card products",
     sidebarWorkflow: "Search, filter, compare",
     sidebarCompareLimit: "Up to 6 side by side",
     heroEyebrow: "Crypto card search and comparison",
@@ -52,6 +54,10 @@ const translations = {
     allNetworks: "All networks",
     allKyc: "All KYC",
     allCustody: "All custody",
+    allStatus: "All status",
+    statusActive: "Active only",
+    statusVerify: "Needs check",
+    statusInactive: "Inactive / legacy",
     sortFeatured: "Featured",
     sortCashback: "Highest cashback",
     sortName: "Name A-Z",
@@ -112,7 +118,7 @@ const translations = {
     navExplore: "탐색",
     pageTitle: "Atlas | 크립토 카드 찾기",
     navCompare: "비교",
-    sidebarProducts: "카드 상품 43개",
+    sidebarProducts: "카드 상품 {count}개",
     sidebarWorkflow: "검색, 필터, 비교",
     sidebarCompareLimit: "최대 6개 동시 비교",
     heroEyebrow: "크립토 카드 검색과 비교",
@@ -134,6 +140,10 @@ const translations = {
     allNetworks: "전체 네트워크",
     allKyc: "전체 KYC",
     allCustody: "전체 수탁 방식",
+    allStatus: "전체 상태",
+    statusActive: "활성 카드만",
+    statusVerify: "검증 필요",
+    statusInactive: "중단/레거시",
     sortFeatured: "추천순",
     sortCashback: "캐시백 높은순",
     sortName: "이름순",
@@ -222,8 +232,9 @@ const valueTranslations = {
   },
 };
 
-function t(key) {
-  return translations[currentLanguage]?.[key] || translations.en[key] || key;
+function t(key, replacements = {}) {
+  const template = translations[currentLanguage]?.[key] || translations.en[key] || key;
+  return Object.entries(replacements).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, value), template);
 }
 
 function translateValue(value) {
@@ -320,7 +331,7 @@ function applyStaticTranslations() {
   document.documentElement.lang = currentLanguage;
   document.title = t("pageTitle");
   document.querySelectorAll("[data-i18n]").forEach((element) => {
-    element.textContent = t(element.dataset.i18n);
+    element.textContent = t(element.dataset.i18n, { count: cards.length.toString() });
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
     element.setAttribute("placeholder", t(element.dataset.i18nPlaceholder));
@@ -348,8 +359,10 @@ function filteredCards() {
     const matchesNetwork = !networkFilter.value || card.network === networkFilter.value;
     const matchesKyc = !kycFilter.value || card.kyc === kycFilter.value;
     const matchesCustody = !custodyFilter.value || card.custody === custodyFilter.value;
+    const cardStatus = String(card.status || "verify").toLowerCase();
+    const matchesStatus = !statusFilter.value || cardStatus === statusFilter.value;
     const matchesSearch = !query || normalizeSearch(card).includes(query);
-    return matchesType && matchesNetwork && matchesKyc && matchesCustody && matchesSearch;
+    return matchesType && matchesNetwork && matchesKyc && matchesCustody && matchesStatus && matchesSearch;
   });
 
   return list.sort((a, b) => {
@@ -508,6 +521,7 @@ function countActiveFilters() {
     Boolean(networkFilter.value),
     Boolean(kycFilter.value),
     Boolean(custodyFilter.value),
+    Boolean(statusFilter.value),
     sortSelect.value !== "rank",
     Boolean(searchInput.value.trim()),
   ].filter(Boolean).length;
@@ -607,7 +621,7 @@ filterButtons.forEach((button) => {
 });
 
 searchInput.addEventListener("input", renderCards);
-[networkFilter, kycFilter, custodyFilter, sortSelect].forEach((select) => {
+[networkFilter, kycFilter, custodyFilter, statusFilter, sortSelect].forEach((select) => {
   select.addEventListener("change", renderCards);
 });
 clearCompare.addEventListener("click", () => {
